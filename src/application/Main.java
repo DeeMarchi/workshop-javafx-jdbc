@@ -12,6 +12,10 @@ public class Main extends Application {
 
     private static Scene mainScene;
 
+    public static Scene getMainScene() {
+        return mainScene;
+    }
+
     public static void main(String[] args) {
         launch(args);
     }
@@ -32,9 +36,5 @@ public class Main extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    public static Scene getMainScene() {
-        return mainScene;
     }
 }
