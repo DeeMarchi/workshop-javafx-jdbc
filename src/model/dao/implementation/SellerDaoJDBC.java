@@ -110,8 +110,8 @@ public class SellerDaoJDBC implements SellerDao {
             statement.setInt(1, id);
 
             statement.executeUpdate();
-        } catch (SQLException | DbIntegrityException e) {
-            throw new DbException(e.getMessage());
+        } catch (SQLException e) {
+            throw new DbIntegrityException(e.getMessage());
         } finally {
             DB.closeStatement(statement);
         }
