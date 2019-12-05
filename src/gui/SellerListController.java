@@ -43,7 +43,7 @@ public class SellerListController implements Initializable, DataChangeListener {
         }
         List<Seller> list = service.findAll();
         observableList = FXCollections.observableArrayList(list);
-        departmentTableView.setItems(observableList);
+        sellerTableView.setItems(observableList);
         initEditButtons();
         initRemoveButtons();
     }
@@ -60,7 +60,7 @@ public class SellerListController implements Initializable, DataChangeListener {
 //            controller.updateFormData();
 //
 //            Stage dialogStage = new Stage();
-//            dialogStage.setTitle("Enter department data");
+//            dialogStage.setTitle("Enter seller data");
 //            dialogStage.setScene(new Scene(pane));
 //            dialogStage.setResizable(false);
 //            dialogStage.initOwner(parentStage);
@@ -109,7 +109,7 @@ public class SellerListController implements Initializable, DataChangeListener {
         });
     }
 
-    private void removeEntity(Seller department) {
+    private void removeEntity(Seller seller) {
         Optional<ButtonType> result = Alerts.showConfirmation("Confirmation", "Are you sure to delete?");
 
         if (result.get() == ButtonType.OK) {
@@ -117,7 +117,7 @@ public class SellerListController implements Initializable, DataChangeListener {
                 throw new IllegalStateException("Service was null");
             }
             try {
-                service.remove(department);
+                service.remove(seller);
                 updateTableView();
             } catch (DbIntegrityException e) {
                 Alerts.showAlert("Error removing object", null, e.getMessage(), Alert.AlertType.ERROR);
@@ -126,7 +126,7 @@ public class SellerListController implements Initializable, DataChangeListener {
     }
 
     @FXML
-    private TableView<Seller> departmentTableView;
+    private TableView<Seller> sellerTableView;
 
     @FXML
     private TableColumn<Seller, Integer> idTableColumn;
@@ -146,8 +146,8 @@ public class SellerListController implements Initializable, DataChangeListener {
     @FXML
     public void onButtonNewAction(ActionEvent event) {
         Stage parentStage = Utils.currentStage(event);
-        Seller department = new Seller();
-        createDialogForm("/gui/SellerForm.fxml", parentStage, department);
+        Seller seller = new Seller();
+        createDialogForm("/gui/SellerForm.fxml", parentStage, seller);
     }
 
     @Override
@@ -161,6 +161,6 @@ public class SellerListController implements Initializable, DataChangeListener {
         nameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
 
         Stage stage = (Stage) Main.getMainScene().getWindow();
-        departmentTableView.prefHeightProperty().bind(stage.heightProperty());
+        sellerTableView.prefHeightProperty().bind(stage.heightProperty());
     }
 }
