@@ -37,6 +37,14 @@ public class DepartmentListController implements Initializable, DataChangeListen
         this.service = service;
     }
 
+    private void initializeCellValues() {
+        idTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        nameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+
+        Stage stage = (Stage) Main.getMainScene().getWindow();
+        departmentTableView.prefHeightProperty().bind(stage.heightProperty());
+    }
+
     public void updateTableView() {
         if (service == null) {
             throw new IllegalStateException("Service was null");
@@ -157,10 +165,6 @@ public class DepartmentListController implements Initializable, DataChangeListen
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        idTableColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
-        nameTableColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
-
-        Stage stage = (Stage) Main.getMainScene().getWindow();
-        departmentTableView.prefHeightProperty().bind(stage.heightProperty());
+        initializeCellValues();
     }
 }
